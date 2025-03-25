@@ -1,1 +1,87 @@
-"This is a new file" 
+// Figure 1: Basic Class Diagram Implementation
+abstract class AbstractProduct {
+    abstract void use();
+}
+
+class ConcreteProduct extends AbstractProduct {
+    @Override
+    void use() {
+        System.out.println("Using Concrete Product");
+    }
+}
+
+class ProductFactory {
+    static AbstractProduct createProduct() {
+        return new ConcreteProduct();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        AbstractProduct product = ProductFactory.createProduct();
+        product.use();
+    }
+}
+
+// Figure 2: Simple Factory Pattern
+interface Product {
+    void operation();
+}
+
+class ConcreteProductA implements Product {
+    public void operation() {
+        System.out.println("ConcreteProductA operation");
+    }
+}
+
+class ConcreteProductB implements Product {
+    public void operation() {
+        System.out.println("ConcreteProductB operation");
+    }
+}
+
+class Factory {
+    static Product createProduct(String type) {
+        if (type.equals("A")) {
+            return new ConcreteProductA();
+        } else if (type.equals("B")) {
+            return new ConcreteProductB();
+        }
+        return null;
+    }
+}
+
+// Figure 3: Abstract Factory Pattern
+interface AbstractFactory {
+    Product createProduct();
+}
+
+class FactoryA implements AbstractFactory {
+    public Product createProduct() {
+        return new ConcreteProductA();
+    }
+}
+
+class FactoryB implements AbstractFactory {
+    public Product createProduct() {
+        return new ConcreteProductB();
+    }
+}
+
+// Figure 4: Singleton Pattern
+class Singleton {
+    private static Singleton instance;
+    
+    private Singleton() {}
+    
+    public static Singleton getInstance() {
+        if (instance == null) {
+            instance = new Singleton();
+        }
+        return instance;
+    }
+    
+    public void showMessage() {
+        System.out.println("Singleton Instance");
+    }
+}
