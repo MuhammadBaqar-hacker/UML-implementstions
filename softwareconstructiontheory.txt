@@ -16,13 +16,6 @@ class ProductFactory {
     }
 }
 
-public class Main {
-    public static void main(String[] args) {
-        AbstractProduct product = ProductFactory.createProduct();
-        product.use();
-    }
-}
-
 // Figure 2: Simple Factory Pattern
 interface Product {
     void operation();
@@ -42,9 +35,9 @@ class ConcreteProductB implements Product {
 
 class Factory {
     static Product createProduct(String type) {
-        if (type.equals("A")) {
+        if (type.equalsIgnoreCase("A")) {
             return new ConcreteProductA();
-        } else if (type.equals("B")) {
+        } else if (type.equalsIgnoreCase("B")) {
             return new ConcreteProductB();
         }
         return null;
@@ -71,17 +64,53 @@ class FactoryB implements AbstractFactory {
 // Figure 4: Singleton Pattern
 class Singleton {
     private static Singleton instance;
-    
+
     private Singleton() {}
-    
+
     public static Singleton getInstance() {
         if (instance == null) {
             instance = new Singleton();
         }
         return instance;
     }
-    
+
     public void showMessage() {
         System.out.println("Singleton Instance");
+    }
+}
+
+// Main class to run all implementations
+public class Main {
+    public static void main(String[] args) {
+        // Running Figure 1
+        System.out.println("Figure 1 Output:");
+        AbstractProduct product = ProductFactory.createProduct();
+        product.use();
+        System.out.println();
+
+        // Running Figure 2
+        System.out.println("Figure 2 Output:");
+        Product productA = Factory.createProduct("A");
+        if (productA != null) productA.operation();
+
+        Product productB = Factory.createProduct("B");
+        if (productB != null) productB.operation();
+        System.out.println();
+
+        // Running Figure 3
+        System.out.println("Figure 3 Output:");
+        AbstractFactory factoryA = new FactoryA();
+        Product productA2 = factoryA.createProduct();
+        productA2.operation();
+
+        AbstractFactory factoryB = new FactoryB();
+        Product productB2 = factoryB.createProduct();
+        productB2.operation();
+        System.out.println();
+
+        // Running Figure 4
+        System.out.println("Figure 4 Output:");
+        Singleton instance1 = Singleton.getInstance();
+        instance1.showMessage();
     }
 }
